@@ -1,0 +1,78 @@
+# -----------------------------
+# OS / editor / Python cache
+# -----------------------------
+.DS_Store
+Thumbs.db
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+*.swo
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+
+# -----------------------------
+# Data artifacts (code-only repo)
+# -----------------------------
+*.pkl
+*.pickle
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.npz
+*.npy
+*.json
+*.jsonl
+*.geojson
+*.gpkg
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.qpj
+*.wkt
+*.xml
+*.xlsx
+*.xls
+
+# Images / binary reports
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.gif
+*.svg
+*.pdf
+
+# Archives
+*.zip
+*.gz
+*.bz2
+*.7z
+*.tar
+
+# Generated folders
+**/output/
+**/outputs/
+**/plots_cityscore/
+
+# -----------------------------
+# Keep source and docs trackable
+# -----------------------------
+!**/*.py
+!**/*.md
+!**/README.md
+!**/requirements.txt
+!**/.gitignore
+!AGENTS.md

@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Local OS files
+.DS_Store
+
+# Data artifacts (keep repo code-only)
+*.pkl
+output/
+
+# Shapefiles / GIS artifacts
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.xml

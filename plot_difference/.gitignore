@@ -1,0 +1,41 @@
+# Data files (keep repo code-only)
+*.pkl
+*.pickle
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.npz
+*.npy
+
+# Geospatial data
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.qpj
+*.gpkg
+*.geojson
+*.json
+*.wkt
+*.xml
+
+# Outputs and artifacts
+outputs/
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.svg
+*.pdf
+
+# Notebooks
+*.ipynb
+
+# Local data folders
+iso/
+to_evaluate/
