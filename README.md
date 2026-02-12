@@ -1,4 +1,4 @@
-# Codex To Git - Code-Only Workspace Guide
+# Workspace Guide
 
 This repository contains multiple scripts for:
 - parsing events,
@@ -18,7 +18,7 @@ This repository contains multiple scripts for:
 - `cityscore_popw_plot/`: bivariate NIL plots (population vs pop-weighted CityScore).
 - `plot_difference/`: category-level before/after comparisons and visualizations.
 
-## End-to-end links
+## Data flow schema
 
 ### Reallocation evaluation flow
 1. Generate allocations:
@@ -50,6 +50,3 @@ This repository contains multiple scripts for:
 - CLI scripts expose parameters with `--help`.
 - Non-CLI scripts in this repo use constants at the top of each file (for example `GRID_PKL`, `EVENTS_PKL`, `OUT_PATH`, `N_RUNS`).
 - Folder-level `README.md` files document each script's parameters and defaults.
-
-## Code-only git policy
-A root `.gitignore` is included to keep only source/docs tracked by default. Existing tracked data files remain tracked until explicitly removed from git index.
