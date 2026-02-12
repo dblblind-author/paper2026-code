@@ -7,9 +7,9 @@ Compare baseline vs reallocated event distributions at NIL/category level.
 - `make_nil_visualizations.py`: heatmap, bar charts, optional choropleths, and before/after CSV.
 
 ## `make_nil_event_counts.py` parameters
-- `--reallocated` (default `reallocated_2024_final_v3_par_50_runs.pkl`)
+- `--reallocated` (default `reallocated_2024_par_50_runs.pkl`)
 - `--hex-to-nil` (default `hex_to_nil.csv`)
-- `--non-relocatable` (default `gdf_2024_final_v3_non_relocatable.pkl`)
+- `--non-relocatable` (default `gdf_2024_non_relocatable.pkl`)
 - `--baseline` (default `gdf_2024_final_v3.pkl`)
 - `--out-by-run` (default `outputs/nil_events_by_run_with_nonreloc.csv`)
 - `--out-avg` (default `outputs/nil_events_avg_across_runs_with_nonreloc.csv`)
