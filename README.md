@@ -40,11 +40,6 @@ This repository contains multiple scripts for:
    - `cityscore_popw_plot/make_baseline_plots.py` (for baseline side of comparison)
    - `cityscore_baseline_seasons/seasonal_cityscore_stats.py` (seasonal statistics).
 
-## File-to-file linkage examples
-- Reallocator output (`allocations` table with `assigned_cell_id`) -> `cityscore/evaluate_realloc_cityscore.py --files ...`.
-- `cityscore/outputs/.../nil_summary_*.csv` -> `cityscore_popw_plot/DATASETS[*].path` when `kind: "csv"`.
-- Baseline cityscore pickle (`cityscore_walk_...pkl`) -> `cityscore_baseline_plot` and `cityscore_popw_plot`.
-- `plot_difference/make_nil_event_counts.py` output `outputs/nil_events_avg_across_runs_with_nonreloc.csv` -> `plot_difference/make_nil_visualizations.py --nil-avg`.
 
 ## Notes on parameters
 - CLI scripts expose parameters with `--help`.
