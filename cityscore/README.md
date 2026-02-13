@@ -1,6 +1,6 @@
 # cityscore
 
-Evaluate reallocation outputs with CityScore and create summary CSVs + NIL maps.
+Evaluate reallocation outputs with CityScore and create summary CSVs + NIL choropleth.
 
 ## Main files
 - `evaluate_realloc_cityscore.py`: main evaluator for single-run and multi-run allocations.
@@ -12,7 +12,7 @@ Evaluate reallocation outputs with CityScore and create summary CSVs + NIL maps.
 - `--hex-to-nil` (default: `hex_to_nil.csv`): must include `hex_id`, `geometry`, `population`, `NIL`.
 - `--nils` (default: `NIL/NIL_WM.shp`): NIL boundaries.
 - `--files`: one or more allocation pickles; each must contain dict key `allocations`.
-- `--non-relocatable` (default: `gdf_2024_final_v3_non_relocatable.pkl`): events added to every run.
+- `--non-relocatable` (default: `gdf_2024_final_non_relocatable.pkl`): events added to every run.
 
 Allocation schema expected in `allocations`:
 - required: `assigned_cell_id`
@@ -50,7 +50,7 @@ Under `--out-dir` (default `outputs/cityscore_eval`):
 ```bash
 cd cityscore
 python evaluate_realloc_cityscore.py \
-  --files to_evaluate/reallocated_2024_final_v3_par_50_runs.pkl \
+  --files to_evaluate/reallocated_2024_par_50_runs.pkl \
           to_evaluate/reallocated_random_100_runs.pkl \
           to_evaluate/greedy_realloc_sum_improvement.pkl \
   --out-dir outputs/cityscore_eval_to_evaluate
