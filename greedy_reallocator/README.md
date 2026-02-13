@@ -30,6 +30,25 @@ python build_neighborhood.py
   - `OUT_PATH_WS = output/greedy_realloc_worst_served.pkl`
   - `OUT_PATH_SI = output/greedy_realloc_sum_improvement.pkl`
 
+## Objective modes: `worst_served` vs `sum_improvement`
+Both modes place events greedily, but optimize different goals at each step.
+
+- `worst_served`
+  - Goal: reduce the worst-covered cells first.
+  - Internal score: minimize the maximum current distance (`dL.max`) after each placement.
+  - Effect: fairness-oriented behavior, typically improving the tail (the most underserved areas), even if total average gain is not maximal.
+  - Output file: `output/greedy_realloc_worst_served.pkl`.
+
+- `sum_improvement`
+  - Goal: maximize total global improvement.
+  - Internal score: maximize the sum of distance reductions across cells (`(dL - new_L).sum()`).
+  - Effect: efficiency-oriented behavior, usually improving average/global metrics more, but may leave some extreme underserved pockets less improved than `worst_served`.
+  - Output file: `output/greedy_realloc_sum_improvement.pkl`.
+
+Quick rule of thumb:
+- prioritize equity/fairness -> use `worst_served`
+- prioritize aggregate gain -> use `sum_improvement`
+
 Run:
 ```bash
 cd greedy_reallocator

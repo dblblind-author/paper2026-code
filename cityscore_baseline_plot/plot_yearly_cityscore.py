@@ -14,7 +14,7 @@ def _load_gdf(path: Path):
 
 
 def _find_pickle(input_dir: Path, year: int, mode: str) -> Optional[Path]:
-    pattern = f"cityscore_{mode}_*_{year}_final.pkl"
+    pattern = f"cityscore_{mode}_*_{year}.pkl"
     matches = sorted(input_dir.glob(pattern))
     if not matches:
         return None
@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--input_dir",
         default=".",
-        help="Directory containing the cityscore_*_final.pkl files.",
+        help="Directory containing the cityscore_<mode>_*_<year>.pkl files.",
     )
     parser.add_argument(
         "--minutes",

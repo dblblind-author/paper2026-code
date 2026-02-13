@@ -7,7 +7,7 @@ Create yearly facet maps (rows=years, cols=modes) from baseline CityScore pickle
 
 ## Input naming convention
 The script searches `--input_dir` with pattern:
-- `cityscore_<mode>_*_<year>_final.pkl`
+- `cityscore_<mode>_*_<year>.pkl`
 
 Typical files come from `cityscore_baseline/outputs/` after renaming/moving.
 

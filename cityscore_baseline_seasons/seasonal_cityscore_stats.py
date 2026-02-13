@@ -126,6 +126,31 @@ def _infer_year_label(path: str) -> str:
     return match.group(1) if match else os.path.splitext(base)[0]
 
 
+def _resolve_event_paths(paths: list[str]) -> list[str]:
+    """
+    Resolve event pickle paths while preferring non-`_final` names.
+    Falls back to the `_final` variant when needed for compatibility.
+    """
+    resolved: list[str] = []
+    for p in paths:
+        if os.path.exists(p):
+            resolved.append(p)
+            continue
+
+        alt = None
+        if p.endswith(".pkl") and "_final.pkl" not in p:
+            alt = p[:-4] + "_final.pkl"
+        elif p.endswith("_final.pkl"):
+            alt = p.replace("_final.pkl", ".pkl")
+
+        if alt and os.path.exists(alt):
+            print(f"[compat] Using {alt} (fallback for missing {p})")
+            resolved.append(alt)
+        else:
+            resolved.append(p)
+    return resolved
+
+
 def _load_hex_meta(hex_to_nil_csv: str) -> pd.DataFrame:
     df = pd.read_csv(hex_to_nil_csv)
     hex_meta = df[["hex_id", "population", "NIL"]].copy()
@@ -175,8 +200,8 @@ def main():
         "--events",
         nargs="*",
         default=[
-            "to_evaluate/gdf_2023_final.pkl",
-            "to_evaluate/gdf_2024_final.pkl",
+            "to_evaluate/gdf_2023.pkl",
+            "to_evaluate/gdf_2024.pkl",
         ],
         help="Pickle GeoDataFrame paths to score.",
     )
@@ -207,6 +232,7 @@ def main():
     iso_paths = [p for p in args.iso if os.path.exists(p)]
     if not iso_paths:
         raise FileNotFoundError("No ISO files found. Check --iso paths.")
+    args.events = _resolve_event_paths(args.events)
 
     hex_meta = _load_hex_meta(args.hex_to_nil)
 

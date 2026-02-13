@@ -22,7 +22,7 @@ This repository contains multiple scripts for:
 ## Data flow schema
 
 ### Event parsing/elaboration flow
-1. Parse/scrape raw events (external or notebook legacy logic).
+1. Parse/scrape raw events (external preprocessing step).
 2. Run `llm_elaboration/elaborate_events.py` on raw event records to get structured fields (`data_inizio`, `orari_*`, `price`, `category`).
 3. Use the elaborated JSON as downstream input for conversion/geocoding steps before geospatial `.pkl` pipelines.
 
@@ -45,6 +45,8 @@ This repository contains multiple scripts for:
    - `cityscore_baseline_plot/plot_yearly_cityscore.py`
    - `cityscore_popw_plot/make_baseline_plots.py` (for baseline side of comparison)
    - `cityscore_baseline_seasons/seasonal_cityscore_stats.py` (seasonal statistics).
+3. Preferred event filename convention is non-`_final` (for example `gdf_2024.pkl`).
+   `cityscore_baseline_seasons` still supports `_final` files as fallback for compatibility.
 
 
 ## Notes on parameters

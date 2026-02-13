@@ -1,14 +1,17 @@
 # llm_elaboration
 
-Refactor of `scraper_llm.ipynb` focused only on the LLM elaboration step.
-
 ## What is included
 - `elaborate_events.py`: plain Python pipeline that reads pre-scraped events and calls OpenAI to extract structured fields.
-- `scraper_llm.ipynb`: original notebook kept as legacy reference.
 
-## What is intentionally excluded
-- Web scraping logic (`requests`/`BeautifulSoup`/`playwright`) is not part of the refactored script.
-- Notebook analytics/plotting cells are not part of the refactored script.
+## Responsibility split
+- LLM (`llm_process`):
+  - extracts `data_inizio`, `data_fine`, `orari_inizio`, `orari_fine`, `price`, `category`, and normalized `location` from raw text fields.
+- Custom deterministic functions (Python):
+  - `_load_input`: validates input structure/required keys.
+  - `_build_user_content`: builds the prompt payload from raw event fields.
+  - `_clean_hour`: normalizes missing hour values (`None`, `"None"`, empty strings) to `None`.
+  - `_expand_dates` (used with `--include-dates`): converts start/end dates + weekday maps into per-day `dates` rows.
+  - `elaborate_events`: orchestrates calls, attaches source metadata (`title`, `description`, `url`), and writes final records.
 
 ## Input schema expected
 Input JSON must be a dict or list of dicts containing:
@@ -47,11 +50,3 @@ cd llm_elaboration
 export OPENAI_API_KEY="<your_key>"
 python elaborate_events.py --input raw_events.json --output events_llm_elaborated.json --include-dates
 ```
-
-## About normalization in the original notebook
-Yes, custom normalization/post-processing code is present in the notebook, not only in the LLM prompt. Examples:
-- `build_date_schedule_std`
-- `transform_entry` / `transform`
-- `categorize_time`
-
-In this refactor, only elaboration logic is kept; optional date expansion (`--include-dates`) mirrors the lightweight `transform` behavior.
