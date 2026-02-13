@@ -8,6 +8,7 @@ This repository contains multiple scripts for:
 
 ## Folder map
 - `parser_baseline_method/`: parse raw event text/JSON into normalized event JSON.
+- `llm_elaboration/`: LLM-only extraction/elaboration from pre-scraped event records.
 - `our_reallocator/`: custom reallocation (`direct` / `inverse` / `par`) over multiple runs.
 - `random_reallocator/`: random and population-weighted random multi-run reallocations.
 - `greedy_reallocator/`: deterministic greedy reallocations.
@@ -19,6 +20,11 @@ This repository contains multiple scripts for:
 - `plot_difference/`: category-level before/after comparisons and visualizations.
 
 ## Data flow schema
+
+### Event parsing/elaboration flow
+1. Parse/scrape raw events (external or notebook legacy logic).
+2. Run `llm_elaboration/elaborate_events.py` on raw event records to get structured fields (`data_inizio`, `orari_*`, `price`, `category`).
+3. Use the elaborated JSON as downstream input for conversion/geocoding steps before geospatial `.pkl` pipelines.
 
 ### Reallocation evaluation flow
 1. Generate allocations:
