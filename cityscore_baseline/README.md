@@ -4,7 +4,6 @@ Compute CityScore on real/baseline event GeoDataFrames.
 
 ## Main files
 - `evaluate_real_cityscore.py`: batch scoring for multiple event files, ISO files, and alpha values.
-- `evaluate_realloc_cityscore.py`: legacy reallocation evaluator variant kept for compatibility.
 - `isochrones.py`, `CityScoreToolkit_plain_v2.py`: toolkit utilities.
 
 ## `evaluate_real_cityscore.py`
@@ -21,11 +20,7 @@ Outputs:
 - `outputs/cityscore_<iso_name>_alpha<alpha>_<year>.pkl`
 - `outputs/summary_cityscore_runs_<timestamp>.csv`
 
-## `evaluate_realloc_cityscore.py`
-Same evaluation style as `cityscore/evaluate_realloc_cityscore.py` but without non-relocatable merge/random-in-cell options.
-
-Parameters:
-- `--iso`, `--hex-to-nil`, `--hex-crs`, `--events-crs`, `--nils`, `--out-dir`, `--limit-runs`, `--workers`, `--files`
+Reallocation evaluation is handled by `cityscore/evaluate_realloc_cityscore.py`.
 
 ## Linking with other folders
 - Downstream baseline artifacts are consumed by:
