@@ -47,6 +47,6 @@ Input JSON must be a dict or list of dicts containing:
 ## Run
 ```bash
 cd llm_elaboration
-export OPENAI_API_KEY="<your_key>"
+export OPENAI_API_KEY="API_KEY_PLACEHOLDER"
 python elaborate_events.py --input raw_events.json --output events_llm_elaborated.json --include-dates
 ```

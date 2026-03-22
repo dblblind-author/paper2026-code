@@ -37,15 +37,46 @@ Dato il seguente testo, estrai:
 - price: uno dei soli valori ["gratis", "a pagamento", "non disponibile"].
 - category: una (e solo una) tra ["community_lifestyle", "art_exhibitions", "Music_concerts", "sport_fitness", "theatre_shows"].
 
-Regole:
-- Non inventare dati: se qualcosa e assente o ambiguo, usa "None" per orari o null per le date.
-- Normalizza orari in HH:MM.
-- Mantieni location come testo sorgente (rimuovendo eventuali duplicazioni di parole/spazi).
+Regole generali:
+- Non inventare dati: se qualcosa e assente o ambiguo, usa "None" per gli orari o null per le date.
+- L'output deve essere sempre JSON valido e rispettare esattamente lo schema richiesto.
+
+Regole DATE:
+- Il testo nel campo DATA puo contenere formati eterogenei, per esempio: "DD/MM/YYYY", "DD/MM", mesi scritti in lettere, intervalli di date e testo libero con orari.
+- Estrai sempre una data di inizio e una data di fine.
+- Se l'evento e di un solo giorno, usa la stessa data sia per data_inizio sia per data_fine.
+- Restituisci le date nel formato YYYY-MM-DD.
+- Se dal campo DATA non e possibile ricavare in modo affidabile una data, usa null.
+
+Regole ORARI:
+- Gli orari vanno estratti solo dal campo DATA.
+- Restituisci orari_inizio e orari_fine come dizionari indicizzati per giorno della settimana con queste chiavi: lunedi, martedi, mercoledi, giovedi, venerdi, sabato, domenica.
+- Normalizza sempre gli orari nel formato HH:MM.
+- Se nella pagina e presente un solo intervallo orario generale, applicalo uniformemente a tutti i giorni della settimana.
+- Se nel testo sono presenti orari specifici per singoli giorni, assegna valori solo ai giorni esplicitamente menzionati e usa "None" per gli altri.
+- Se per un giorno e presente solo l'orario di apertura, compila orari_inizio e usa "None" in orari_fine.
+- Se non trovi un orario affidabile per un giorno, usa "None".
+
+Regole CATEGORIA:
+- La categoria non e disponibile come campo strutturato: inferiscila dal testo nel campo DESCRIZIONE.
+- Assegna una sola categoria tra: "art_exhibitions", "community_lifestyle", "Music_concerts", "sport_fitness", "theatre_shows".
+- Scegli la categoria piu specifica compatibile con il contenuto della descrizione.
+- Usa "art_exhibitions" per mostre, esposizioni, gallerie, musei, installazioni.
+- Usa "Music_concerts" per concerti, live, dj set, festival musicali, orchestre, band.
+- Usa "sport_fitness" per gare, tornei, partite, corsa, yoga, fitness, allenamenti.
+- Usa "theatre_shows" per teatro, commedie, musical, opera, performance teatrali.
+- Usa "community_lifestyle" per mercatini, fiere, sagre, workshop, laboratori, incontri, conferenze, attivita per famiglie o food and drink quando nessuna categoria piu specifica e adatta.
+
+Regole LOCATION:
+- Usa solo il campo LOCATION.
+- La location e spesso semi-strutturata: fai solo pulizia minima.
+- Mantieni il testo originale della location senza riscriverlo.
+- Rimuovi solo duplicazioni evidenti di parole e spazi superflui.
 
 Usa SOLO questi campi sorgente:
 - PREZZO <- campo prezzo
 - DATA <- campo data_ora
-- CATEGORIA <- descrizione/titolo
+- CATEGORIA <- campo DESCRIZIONE
 - LOCATION <- campo location
 
 Rispondi SOLO con un JSON valido in questo schema:
