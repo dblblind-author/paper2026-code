@@ -1,14 +1,20 @@
 # Workspace Guide
 
 This repository contains multiple scripts for:
+- scraping raw event pages,
 - parsing events,
+- filtering and geocoding yearly GeoDataFrames,
+- clustering event locations across years,
 - generating reallocation scenarios,
 - evaluating CityScore,
 - plotting and comparing NIL-level results.
 
 ## Folder map
+- `event_scraper/`: scrape raw Milanotoday event pages into a raw JSON feed.
 - `parser_baseline_method/`: parse raw event text/JSON into normalized event JSON.
 - `llm_elaboration/`: LLM-only extraction/elaboration from pre-scraped event records.
+- `filtering/`: flatten JSON events, geocode locations, and rebuild yearly event GeoDataFrames.
+- `clustering/`: DBSCAN elbow analysis, clustering summaries, and stable-cluster visualizations for 2023 vs 2024.
 - `our_reallocator/`: custom reallocation (`direct` / `inverse` / `par`) over multiple runs.
 - `random_reallocator/`: random and population-weighted random multi-run reallocations.
 - `greedy_reallocator/`: deterministic greedy reallocations.
@@ -23,8 +29,14 @@ This repository contains multiple scripts for:
 
 ### Event parsing/elaboration flow
 1. Parse/scrape raw events (external preprocessing step).
-2. Run `llm_elaboration/elaborate_events.py` on raw event records to get structured fields (`data_inizio`, `orari_*`, `price`, `category`).
-3. Use the elaborated JSON as downstream input for conversion/geocoding steps before geospatial `.pkl` pipelines.
+2. Run `event_scraper/scrape_events.py` if you need to collect the raw event pages first.
+3. Run `llm_elaboration/elaborate_events.py` on raw event records to get structured fields (`data_inizio`, `orari_*`, `price`, `category`).
+4. Use `filtering/` scripts to flatten, clean, geocode, and rebuild yearly GeoDataFrames from the structured JSON.
+
+### Clustering flow
+1. Prepare yearly GeoDataFrames for clustering as `gdf_2023` and `gdf_2024`.
+2. Run `clustering/dbscan_clustering.py` to generate elbow plots and clustering summary CSVs.
+3. Run the plotting helpers in `clustering/` to inspect unique-title distributions, DBSCAN clusters, and Hungarian-matched stable clusters between years.
 
 ### Reallocation evaluation flow
 1. Generate allocations:
@@ -47,6 +59,7 @@ This repository contains multiple scripts for:
    - `cityscore_baseline_seasons/seasonal_cityscore_stats.py` (seasonal statistics).
 3. Preferred event filename convention is non-`_final` (for example `gdf_2024.pkl`).
    `cityscore_baseline_seasons` still supports `_final` files as fallback for compatibility.
+4. The clustering scripts follow the same naming convention and now default to `gdf_2023` / `gdf_2024`.
 
 
 ## Notes on parameters
